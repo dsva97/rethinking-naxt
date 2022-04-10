@@ -1,0 +1,40 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+    <script>fetch('/routes.json').then(res=>res.json()).then(routes=>{
+      window.ROUTES=routes
+    })</script>
+    
+      <!-- HEAD -->
+      
+      <!-- HEAD -->
+    </head>
+    <body>
+      <div id="naxtApp">
+<div id="app">
+    <header>
+        <a href="/" is="a-link">
+            <h1>My project</h1>
+        </a>
+        <nav>
+            <a href="/" is="a-link">Home</a>
+            <a href="/contact" is="a-link">Contact</a>
+        </nav>
+    </header>
+    <main id="naxtRouter">
+    <h1>Contact!</h1>
+</main>
+    <footer>
+        Hecho con pasión en Los Olivos
+    </footer>
+</div>
+</div>
+      <script src="/__scripts__/app/script.js" type="module"></script><script src="/__scripts__/views/Contact/script.js" type="module"></script>
+    </body>
+    </html>
+    

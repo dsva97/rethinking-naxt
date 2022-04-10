@@ -1,0 +1,41 @@
+{
+  "name": "naxt",
+  "version": "1.0.0",
+  "main": "./dist/server/index.js",
+  "exports": {
+    ".": "./dist/server/index.js",
+    "./lib": "./dist/lib/index.js",
+    "./lib/server": "./dist/lib/server.js",
+    "./router/ALink": "./dist/router/ALink.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "bin": {
+    "naxt": "./dist/bin/naxt.js"
+  },
+  "preferGlobal": true,
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/live-server": "^1.2.1",
+    "@types/node": "^16.9.1",
+    "@types/nodemon": "^1.19.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/plugin-transform-typescript": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-typescript": "^7.15.0",
+    "@babel/register": "^7.15.3",
+    "esbuild": "^0.12.28",
+    "esbuild-css-modules-plugin": "^2.2.13",
+    "express": "^4.17.3",
+    "live-server": "^1.2.1"
+  }
+}
