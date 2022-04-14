@@ -4,8 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "naxt start",
-    "build": "naxt build"
+    "start:old": "naxt start",
+    "build:old": "naxt build",
+    "build": "node build.js",
+    "start": "node dist/index.js",
+    "dev": "yarn build && yarn start",
+    "devx": "nodemon --watch src --exec \"node build.js && node dist\""
   },
   "dependencies": {
     "express": "^4.17.3",

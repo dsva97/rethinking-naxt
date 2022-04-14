@@ -5,7 +5,9 @@
   "exports": {
     ".": "./dist/server/index.js",
     "./lib": "./dist/lib/index.js",
+    "./lib/link": "./dist/lib/link.js",
     "./lib/server": "./dist/lib/server.js",
+    "./lib/router": "./dist/lib/router.js",
     "./router/ALink": "./dist/router/ALink.js"
   },
   "license": "MIT",

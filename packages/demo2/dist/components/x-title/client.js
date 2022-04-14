@@ -1,6 +1,7 @@
 import {
   tag
-} from "../chunk-THQDAEOO.js";
+} from "../chunk-HRWT5ILY.js";
+import "../chunk-BXBWWY2J.js";
 
 // src/components/x-title/client.ts
 var XTitle = class extends HTMLElement {

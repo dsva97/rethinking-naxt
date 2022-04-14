@@ -15209,7 +15209,7 @@ var require_escape_html = __commonJS({
         return str;
       }
       var escape2;
-      var html6 = "";
+      var html7 = "";
       var index = 0;
       var lastIndex = 0;
       for (index = match.index; index < str.length; index++) {
@@ -15233,12 +15233,12 @@ var require_escape_html = __commonJS({
             continue;
         }
         if (lastIndex !== index) {
-          html6 += str.substring(lastIndex, index);
+          html7 += str.substring(lastIndex, index);
         }
         lastIndex = index + 1;
-        html6 += escape2;
+        html7 += escape2;
       }
-      return lastIndex !== index ? html6 + str.substring(lastIndex, index) : html6;
+      return lastIndex !== index ? html7 + str.substring(lastIndex, index) : html7;
     }
   }
 });
@@ -29103,6 +29103,106 @@ var require_express2 = __commonJS({
   }
 });
 
+// ../naxt/dist/lib/router.js
+var require_router2 = __commonJS({
+  "../naxt/dist/lib/router.js"(exports2) {
+    "use strict";
+    var __awaiter = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.naxtRouter = exports2.getLayout = void 0;
+    var express_1 = require_express2();
+    var getLayout = ({ lastHead = "", layout = (content2) => content2, lastBody = "", content = "", dependencies = [] }) => {
+      return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="dependencies" content="${dependencies.join(",")}" />
+      <meta name="heads-start" />${lastHead}<meta name="heads-end" />
+    </head>
+    <body>
+      <div id="_app">${layout(content)}</div>
+      ${lastBody}
+    </body>
+    </html>
+    `;
+    };
+    exports2.getLayout = getLayout;
+    var getHtml = (page, layout) => {
+      const dependencies = Array.from(page.dependencies).concat(layout ? ["x-layout"] : []);
+      const lastBody = dependencies.map((dependency) => `<script src="/components/${dependency}/client.js" type="module"><\/script>`).join("");
+      const content = page.html;
+      const lastHead = Array.from(page.heads).join("");
+      const html7 = (0, exports2.getLayout)({ lastBody, content, layout, dependencies, lastHead });
+      return html7;
+    };
+    var routerSetToArray = (router) => {
+      return Object.assign(Object.assign({}, router), { heads: Array.from(router.heads), dependencies: Array.from(router.dependencies) });
+    };
+    var naxtRouter2 = (routers, layout) => {
+      const appRouter = (0, express_1.Router)();
+      let useRouter = true;
+      if (!layout) {
+        useRouter = false;
+        layout = (content) => content;
+      }
+      for (const route in routers) {
+        let page = routers[route];
+        let html7 = "";
+        if (typeof page === "object") {
+          page = routerSetToArray(page);
+          html7 = getHtml(page, layout);
+          appRouter.get("/_" + route, (_req, res) => {
+            res.json(page);
+          });
+        }
+        appRouter.get(route, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+          if (typeof page === "object") {
+            res.send(html7);
+          } else {
+            const voidOrRouter = yield page(req, res, next);
+            if (voidOrRouter) {
+              const router = routerSetToArray(voidOrRouter);
+              const html8 = getHtml(router, layout);
+              res.send(html8);
+            }
+          }
+        }));
+      }
+      return appRouter;
+    };
+    exports2.naxtRouter = naxtRouter2;
+  }
+});
+
 // ../../node_modules/picocolors/picocolors.js
 var require_picocolors = __commonJS({
   "../../node_modules/picocolors/picocolors.js"(exports2, module2) {
@@ -30530,90 +30630,90 @@ var require_util = __commonJS({
       return true;
     }
     function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
-      var cmp6 = strcmp(mappingA.source, mappingB.source);
-      if (cmp6 !== 0) {
-        return cmp6;
+      var cmp7 = strcmp(mappingA.source, mappingB.source);
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalLine - mappingB.originalLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.originalLine - mappingB.originalLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalColumn - mappingB.originalColumn;
-      if (cmp6 !== 0 || onlyCompareOriginal) {
-        return cmp6;
+      cmp7 = mappingA.originalColumn - mappingB.originalColumn;
+      if (cmp7 !== 0 || onlyCompareOriginal) {
+        return cmp7;
       }
-      cmp6 = mappingA.generatedColumn - mappingB.generatedColumn;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.generatedColumn - mappingB.generatedColumn;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.generatedLine - mappingB.generatedLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.generatedLine - mappingB.generatedLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
       return strcmp(mappingA.name, mappingB.name);
     }
     exports2.compareByOriginalPositions = compareByOriginalPositions;
     function compareByOriginalPositionsNoSource(mappingA, mappingB, onlyCompareOriginal) {
-      var cmp6;
-      cmp6 = mappingA.originalLine - mappingB.originalLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      var cmp7;
+      cmp7 = mappingA.originalLine - mappingB.originalLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalColumn - mappingB.originalColumn;
-      if (cmp6 !== 0 || onlyCompareOriginal) {
-        return cmp6;
+      cmp7 = mappingA.originalColumn - mappingB.originalColumn;
+      if (cmp7 !== 0 || onlyCompareOriginal) {
+        return cmp7;
       }
-      cmp6 = mappingA.generatedColumn - mappingB.generatedColumn;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.generatedColumn - mappingB.generatedColumn;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.generatedLine - mappingB.generatedLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.generatedLine - mappingB.generatedLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
       return strcmp(mappingA.name, mappingB.name);
     }
     exports2.compareByOriginalPositionsNoSource = compareByOriginalPositionsNoSource;
     function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
-      var cmp6 = mappingA.generatedLine - mappingB.generatedLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      var cmp7 = mappingA.generatedLine - mappingB.generatedLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.generatedColumn - mappingB.generatedColumn;
-      if (cmp6 !== 0 || onlyCompareGenerated) {
-        return cmp6;
+      cmp7 = mappingA.generatedColumn - mappingB.generatedColumn;
+      if (cmp7 !== 0 || onlyCompareGenerated) {
+        return cmp7;
       }
-      cmp6 = strcmp(mappingA.source, mappingB.source);
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = strcmp(mappingA.source, mappingB.source);
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalLine - mappingB.originalLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.originalLine - mappingB.originalLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalColumn - mappingB.originalColumn;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.originalColumn - mappingB.originalColumn;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
       return strcmp(mappingA.name, mappingB.name);
     }
     exports2.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
     function compareByGeneratedPositionsDeflatedNoLine(mappingA, mappingB, onlyCompareGenerated) {
-      var cmp6 = mappingA.generatedColumn - mappingB.generatedColumn;
-      if (cmp6 !== 0 || onlyCompareGenerated) {
-        return cmp6;
+      var cmp7 = mappingA.generatedColumn - mappingB.generatedColumn;
+      if (cmp7 !== 0 || onlyCompareGenerated) {
+        return cmp7;
       }
-      cmp6 = strcmp(mappingA.source, mappingB.source);
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = strcmp(mappingA.source, mappingB.source);
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalLine - mappingB.originalLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.originalLine - mappingB.originalLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalColumn - mappingB.originalColumn;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.originalColumn - mappingB.originalColumn;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
       return strcmp(mappingA.name, mappingB.name);
     }
@@ -30634,25 +30734,25 @@ var require_util = __commonJS({
       return -1;
     }
     function compareByGeneratedPositionsInflated(mappingA, mappingB) {
-      var cmp6 = mappingA.generatedLine - mappingB.generatedLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      var cmp7 = mappingA.generatedLine - mappingB.generatedLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.generatedColumn - mappingB.generatedColumn;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.generatedColumn - mappingB.generatedColumn;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = strcmp(mappingA.source, mappingB.source);
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = strcmp(mappingA.source, mappingB.source);
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalLine - mappingB.originalLine;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.originalLine - mappingB.originalLine;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
-      cmp6 = mappingA.originalColumn - mappingB.originalColumn;
-      if (cmp6 !== 0) {
-        return cmp6;
+      cmp7 = mappingA.originalColumn - mappingB.originalColumn;
+      if (cmp7 !== 0) {
+        return cmp7;
       }
       return strcmp(mappingA.name, mappingB.name);
     }
@@ -31076,10 +31176,10 @@ var require_binary_search = __commonJS({
     exports2.LEAST_UPPER_BOUND = 2;
     function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
       var mid = Math.floor((aHigh - aLow) / 2) + aLow;
-      var cmp6 = aCompare(aNeedle, aHaystack[mid], true);
-      if (cmp6 === 0) {
+      var cmp7 = aCompare(aNeedle, aHaystack[mid], true);
+      if (cmp7 === 0) {
         return mid;
-      } else if (cmp6 > 0) {
+      } else if (cmp7 > 0) {
         if (aHigh - mid > 1) {
           return recursiveSearch(mid, aHigh, aNeedle, aHaystack, aCompare, aBias);
         }
@@ -31681,9 +31781,9 @@ var require_source_map_consumer = __commonJS({
         generatedColumn: util.getArg(aArgs, "column")
       };
       var sectionIndex = binarySearch.search(needle, this._sections, function(needle2, section2) {
-        var cmp6 = needle2.generatedLine - section2.generatedOffset.generatedLine;
-        if (cmp6) {
-          return cmp6;
+        var cmp7 = needle2.generatedLine - section2.generatedOffset.generatedLine;
+        if (cmp7) {
+          return cmp7;
         }
         return needle2.generatedColumn - section2.generatedOffset.generatedColumn;
       });
@@ -48102,31 +48202,11 @@ var require_server = __commonJS({
     };
     var _a;
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.naxtRouter = exports2.build = exports2.layout = void 0;
+    exports2.build = void 0;
     var path_1 = __importStar(require("path"));
     var fs_1 = __importDefault(require("fs"));
     var esbuild_1 = require("esbuild");
     var esbuild_css_modules_plugin_1 = __importDefault(require_esbuild_css_modules_plugin());
-    var express_1 = require_express2();
-    var layout = ({ lastHead = "", lastBody = "", content = "" }) => {
-      return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Document</title>
-      ${lastHead}
-    </head>
-    <body>
-      <div id="_app">${content}</div>
-      ${lastBody}
-    </body>
-    </html>
-    `;
-    };
-    exports2.layout = layout;
     var fileName = (_a = require === null || require === void 0 ? void 0 : require.main) === null || _a === void 0 ? void 0 : _a.filename;
     var srcDir = "";
     if (fileName) {
@@ -48159,7 +48239,6 @@ var require_server = __commonJS({
     }
     var build2 = () => __awaiter(void 0, void 0, void 0, function* () {
       fs_1.default.rmSync(distComponents, { recursive: true, force: true });
-      console.log("pathClientFiles>>", pathClientFiles);
       const result = yield (0, esbuild_1.build)({
         entryPoints: pathClientFiles,
         external: ["esbuild"],
@@ -48179,36 +48258,6 @@ var require_server = __commonJS({
       };
     });
     exports2.build = build2;
-    var getHtml = (page) => {
-      const dependencies = Array.from(page.dependencies);
-      const lastBody = dependencies.map((dependency) => `<script src="/components/${dependency}/client.js" type="module"><\/script>`).join("");
-      const content = page.html;
-      const html6 = (0, exports2.layout)({ lastBody, content });
-      return html6;
-    };
-    var naxtRouter2 = (routers) => {
-      const appRouter = (0, express_1.Router)();
-      for (const route in routers) {
-        const page = routers[route];
-        let html6 = "";
-        if (typeof page === "object") {
-          html6 = getHtml(page);
-        }
-        appRouter.get(route, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-          if (typeof page === "object") {
-            res.send(html6);
-          } else {
-            const voidOrRouter = yield page(req, res, next);
-            if (voidOrRouter) {
-              const html7 = getHtml(voidOrRouter);
-              res.send(html7);
-            }
-          }
-        }));
-      }
-      return appRouter;
-    };
-    exports2.naxtRouter = naxtRouter2;
   }
 });
 
@@ -48216,47 +48265,74 @@ var require_server = __commonJS({
 var require_lib6 = __commonJS({
   "../naxt/dist/lib/index.js"(exports2) {
     "use strict";
+    var __rest = exports2 && exports2.__rest || function(s, e) {
+      var t = {};
+      for (var p in s)
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+          t[p] = s[p];
+      if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+            t[p[i]] = s[p[i]];
+        }
+      return t;
+    };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.html = exports2.cmp = void 0;
     var isStrOrNumber = (value, key) => (typeof value === "string" || typeof value === "number") && (key ? typeof key === "string" || typeof key === "number" : true);
-    var cmp6 = (execHtml) => {
+    var cmp7 = (execHtml) => {
       return function(tag3 = "") {
         return function(props) {
-          let { html: html7, dependencies } = execHtml(props);
+          let heads = new Set();
+          const setHead = (string = "") => {
+            heads.add(string);
+            return "";
+          };
+          let _a = execHtml(Object.assign(Object.assign({}, props), { setHead })), { html: html8, dependencies } = _a, res = __rest(_a, ["html", "dependencies"]);
+          heads = new Set(Array.from([...heads, ...res.heads]));
           if (!globalThis.fetch && tag3) {
             const attr = Object.entries(props).map(([key, value]) => isStrOrNumber(value) ? ` ${key}="${value}"` : "").join("");
-            html7 = `<${tag3}${attr}>${html7}</${tag3}>`;
+            html8 = `<${tag3}${attr}>${html8}</${tag3}>`;
           }
-          return { tag: tag3, dependencies, html: html7 };
+          return { tag: tag3, dependencies, html: html8, heads };
         };
       };
     };
-    exports2.cmp = cmp6;
-    var html6 = (...fragments) => {
+    exports2.cmp = cmp7;
+    var html7 = (...fragments) => {
       const parts = [...fragments.shift()];
-      let html7 = parts === null || parts === void 0 ? void 0 : parts.shift();
+      let html8 = parts === null || parts === void 0 ? void 0 : parts.shift();
       let dependencies = new Set();
+      let heads = new Set();
       for (let i = 0; i < parts.length; i++) {
         let fragment = fragments[i] || "";
         const part = parts[i];
         if (fragment === null || fragment === void 0 ? void 0 : fragment.tag) {
           dependencies.add(fragment.tag);
-          dependencies = new Set([...dependencies, ...fragment.dependencies]);
+          dependencies = new Set([
+            ...dependencies,
+            ...fragment.dependencies
+          ]);
           fragment = fragment.html;
         }
-        html7 += fragment + part;
+        if (fragment.heads) {
+          heads = new Set([...heads, ...fragment.heads]);
+        }
+        html8 += fragment + part;
       }
       return {
         dependencies,
-        html: html7
+        html: html8,
+        heads
       };
     };
-    exports2.html = html6;
+    exports2.html = html7;
   }
 });
 
 // src/index.ts
 var import_express = __toModule(require_express2());
+var import_router = __toModule(require_router2());
 var import_server = __toModule(require_server());
 
 // src/pages/blog/Blog/index.ts
@@ -48265,7 +48341,7 @@ var import_lib3 = __toModule(require_lib6());
 // src/components/x-title/index.ts
 var import_lib = __toModule(require_lib6());
 
-// esbuild-css-modules-plugin-namespace:/tmp/tmp-92340-1OKa53KDKRR7/demo2/src/components/x-title/style.module.css.js
+// esbuild-css-modules-plugin-namespace:/tmp/tmp-60598-5x7kv6O5ZWeH/demo2/src/components/x-title/style.module.css.js
 var style_module_css_default = { "title": "_title_gygqx_1" };
 
 // src/components/x-title/index.ts
@@ -48285,11 +48361,12 @@ var Card = (0, import_lib2.cmp)(({ title, text }) => import_lib2.html`
 `)(tag2);
 
 // src/pages/blog/Blog/index.ts
-var BlogPage = (0, import_lib3.cmp)(() => import_lib3.html`
-    ${Title({ title: "Blog" })}
-
+var BlogPage = (0, import_lib3.cmp)(({ setHead }) => import_lib3.html`
+    ${setHead(`
+    <title>Blog</title>
+    `)} ${Title({ title: "Blog" })}
     ${Card({ title: "Card", text: Title({ title: "Inside" }) })}
-`);
+  `);
 var Blog_default = BlogPage;
 
 // src/pages/blog/Post/index.ts
@@ -48303,12 +48380,28 @@ var Post_default = PostPage;
 
 // src/pages/Index/index.ts
 var import_lib5 = __toModule(require_lib6());
-var IndexPage = (0, import_lib5.cmp)(() => import_lib5.html`
-    ${Title({ title: "Index" })}
-    <div>Hola</div
-    ${Card({ title: "Card", text: Title({ title: "Inside" }) })}
+var IndexPage = (0, import_lib5.cmp)(({ setHead }) => import_lib5.html`
+  ${setHead(`
+    <title>Index</title>
+  `)}
+  ${Title({ title: "Index" })}
+  <div>Hola</div
+  ${Card({ title: "Card", text: Title({ title: "Inside" }) })}
 `);
 var Index_default = IndexPage;
+
+// src/components/x-layout/index.ts
+var import_lib6 = __toModule(require_lib6());
+var Layout = (0, import_lib6.cmp)(({ content }) => import_lib6.html`
+    <div id="container">
+      <nav>
+        <a href="/" is="a-link">Index</a>
+        <a href="/blog" is="a-link">Blog</a>
+      </nav>
+      <main id="router">${content}</main>
+    </div>
+  `);
+var x_layout_default = Layout;
 
 // src/index.ts
 var main = async () => {
@@ -48321,7 +48414,10 @@ var main = async () => {
   };
   const builded = await (0, import_server.build)();
   app.use("/components", import_express.default.static(builded.dist));
-  app.use((0, import_server.naxtRouter)(routes));
+  const layout = (content) => {
+    return "" + x_layout_default()({ content }).html;
+  };
+  app.use((0, import_router.naxtRouter)(routes, layout));
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 };
 main();
