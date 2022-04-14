@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import { naxtRouter } from "naxt/lib/router";
 import { build } from "naxt/lib/server";
 import BlogPage from "./pages/blog/Blog";
@@ -17,7 +18,12 @@ const main = async () => {
   };
 
   const builded = await build();
-  app.use("/components", express.static(builded.dist));
+  app.use("/__scripts__", express.static(builded.dist));
+  const parts = path.join(builded.dist + "/../__parts__");
+  app.use("/__parts__", express.static(parts));
+  app.use("/tailwind.css", (req, res) => {
+    res.sendFile(path.join(builded.dist + "/../tailwind.css"));
+  });
 
   const layout = (content: string) => {
     return "" + Layout()({ content }).html;

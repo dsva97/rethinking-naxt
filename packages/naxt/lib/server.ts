@@ -11,11 +11,12 @@ if (fileName) {
   throw new Error("require?.main?.filename is not defined");
 }
 
-const rootProject = path.resolve(srcDir, "..");
-const src = path.resolve(rootProject, "src");
-const dist = path.resolve(rootProject, "dist");
-const srcComponents = path.resolve(src, "components");
-const distComponents = path.resolve(dist, "components");
+const rootProject = path.join(srcDir, "..");
+const src = path.join(rootProject, "src");
+const dist = path.join(rootProject, "dist");
+const srcComponents = path.join(src, "components");
+const distBuild = path.join(dist, "build");
+const distScripts = path.join(distBuild, "__scripts__");
 
 let pathClientFiles: string[];
 
@@ -45,7 +46,7 @@ try {
 }
 
 export const build = async () => {
-  fs.rmSync(distComponents, { recursive: true, force: true });
+  fs.rmSync(distScripts, { recursive: true, force: true });
   const result = await esbuild({
     entryPoints: pathClientFiles,
     external: ["esbuild"],
@@ -56,18 +57,26 @@ export const build = async () => {
     ],
     bundle: true,
     splitting: true,
-    outdir: "dist/components",
+    outdir: "dist/build/__scripts__",
     format: "esm",
   });
   return {
     result,
-    dist: distComponents,
+    dist: distScripts,
   };
 };
 
-export const buildPage = async (_path: string, content: string) => {
-  const finalPath = path.join(dist, _path);
-  console.log(finalPath);
+export const buildPage = async (
+  _path: string,
+  content: string,
+  isPart: boolean = false
+) => {
+  const finalPath = path.join(
+    dist + "/build",
+    (isPart ? "/__parts__" : "") + _path
+  );
+  const directory = finalPath.slice(0, -10);
+  fs.mkdirSync(directory, { recursive: true });
   try {
     fs.writeFileSync(finalPath, content, {
       encoding: "utf8",

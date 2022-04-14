@@ -71,17 +71,17 @@ var require_link = __commonJS({
       static navigate(pathname) {
         return __awaiter(this, void 0, void 0, function* () {
           if (!(pages[pathname] && ALink.$router)) {
-            const page = yield fetch("/_" + pathname).then((res) => res.ok ? res.json() : {
+            const page = yield fetch("/__parts__" + pathname).then((res) => res.ok ? res.json() : {
               html: "Resource not found or Page Not Defined 404",
               dependencies: [],
               heads: []
             });
             page.heads = page.heads.map((head) => head.trim());
+            page.html = page.html.trim();
             pages[pathname] = page;
           }
           if (this.$router) {
             this.$router.innerHTML = pages[pathname].html;
-            console.log(pages);
             getHeads(pages[pathname].heads.join(""));
           }
         });

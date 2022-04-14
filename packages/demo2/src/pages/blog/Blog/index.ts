@@ -6,6 +6,7 @@ const BlogPage = cmp(
   ({ setHead }) => html`
     ${setHead(/*html*/ `
     <title>Blog</title>
+    <meta name="description" content="Blog de la aplicación" />
     `)} ${Title({ title: "Blog" })}
     ${Card({ title: "Card", text: Title({ title: "Inside" }) })}
   `

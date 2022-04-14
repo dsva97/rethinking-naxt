@@ -26,7 +26,7 @@ class ALink extends HTMLAnchorElement {
   }
   static async navigate(pathname: string) {
     if (!(pages[pathname] && ALink.$router)) {
-      const page: IPage = await fetch("/_" + pathname).then((res) =>
+      const page: IPage = await fetch("/__parts__" + pathname).then((res) =>
         res.ok
           ? res.json()
           : {
@@ -36,11 +36,11 @@ class ALink extends HTMLAnchorElement {
             }
       );
       page.heads = page.heads.map((head) => head.trim());
+      page.html = page.html.trim();
       pages[pathname] = page;
     }
     if (this.$router) {
       this.$router.innerHTML = pages[pathname].html;
-      console.log(pages);
       getHeads(pages[pathname].heads.join(""));
     }
   }

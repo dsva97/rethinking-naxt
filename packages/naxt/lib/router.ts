@@ -25,6 +25,7 @@ export const getLayout = ({
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="dependencies" content="${dependencies.join(",")}" />
       <meta name="heads-start" />${lastHead}<meta name="heads-end" />
+      <link rel="stylesheet" href="/tailwind.css" />
     </head>
     <body>
       <div id="_app">${layout(content)}</div>
@@ -41,7 +42,7 @@ const getHtml = (page: IRouter, layout?: (content: string) => string) => {
   const lastBody = dependencies
     .map(
       (dependency) =>
-        `<script src="/components/${dependency}/client.js" type="module"></script>`
+        `<script src="/__scripts__/${dependency}/client.js" type="module"></script>`
     )
     .join("");
   const content = page.html;
@@ -100,6 +101,7 @@ export const naxtRouter = (
 
       const pathHtml = route + (route === "/" ? "" : "/") + "index.html";
       buildPage(pathHtml, html);
+      buildPage(pathHtml, JSON.stringify(page, null, 3), true);
     }
 
     appRouter.get(route, async (req, res, next) => {
