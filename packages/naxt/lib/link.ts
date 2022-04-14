@@ -5,6 +5,20 @@ interface IQueryData {
   [key: string]: string[];
 }
 
+const getCurrentDependencies = () => {
+  const dependencies = document.head
+    .querySelector('meta[name="dependencies"]')
+    ?.getAttribute("content")
+    ?.split(",")
+    .map((dep) => dep.trim());
+  return dependencies || [];
+};
+
+const getNoLoaded = (currents: string[], requireds: string[]) => {
+  const noLoaded = requireds.filter((required) => !currents.includes(required));
+  return noLoaded;
+};
+
 export const getQueryData = (
   search: string = window.location.search
 ): IQueryData => {
@@ -37,6 +51,7 @@ class ALink extends HTMLAnchorElement {
       );
       page.heads = page.heads.map((head) => head.trim());
       page.html = page.html.trim();
+      const noLoaded = getNoLoaded(getCurrentDependencies(), page.dependencies);
       page.dependencies.forEach((dependency) => {
         const script = document.createElement("script");
         script.type = "module";

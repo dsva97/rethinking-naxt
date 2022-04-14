@@ -48361,7 +48361,7 @@ var import_lib3 = __toModule(require_lib6());
 // src/components/x-title/index.ts
 var import_lib = __toModule(require_lib6());
 
-// esbuild-css-modules-plugin-namespace:/tmp/tmp-93992-4LygaDTxQsuW/demo2/src/components/x-title/style.module.css.js
+// esbuild-css-modules-plugin-namespace:/tmp/tmp-106393-3G3nJkY9pbvn/demo2/src/components/x-title/style.module.css.js
 var style_module_css_default = { "title": "_title_gygqx_1" };
 
 // src/components/x-title/index.ts

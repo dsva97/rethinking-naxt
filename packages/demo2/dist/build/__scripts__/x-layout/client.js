@@ -48,6 +48,15 @@ var require_link = __commonJS({
     var _ALink_handleClick;
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getQueryData = void 0;
+    var getCurrentDependencies = () => {
+      var _a2, _b2;
+      const dependencies = (_b2 = (_a2 = document.head.querySelector('meta[name="dependencies"]')) === null || _a2 === void 0 ? void 0 : _a2.getAttribute("content")) === null || _b2 === void 0 ? void 0 : _b2.split(",").map((dep) => dep.trim());
+      return dependencies || [];
+    };
+    var getNoLoaded = (currents, requireds) => {
+      const noLoaded = requireds.filter((required) => !currents.includes(required));
+      return noLoaded;
+    };
     var getQueryData = (search = window.location.search) => {
       const queryString = search.substring(1);
       const result = queryString.split("&").reduce((obj, str) => {
@@ -78,6 +87,7 @@ var require_link = __commonJS({
             });
             page.heads = page.heads.map((head) => head.trim());
             page.html = page.html.trim();
+            const noLoaded = getNoLoaded(getCurrentDependencies(), page.dependencies);
             page.dependencies.forEach((dependency) => {
               const script = document.createElement("script");
               script.type = "module";
