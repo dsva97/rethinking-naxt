@@ -48361,7 +48361,7 @@ var import_lib3 = __toModule(require_lib6());
 // src/components/x-title/index.ts
 var import_lib = __toModule(require_lib6());
 
-// esbuild-css-modules-plugin-namespace:/tmp/tmp-66908-GJWVlqIbtZVJ/demo2/src/components/x-title/style.module.css.js
+// esbuild-css-modules-plugin-namespace:/tmp/tmp-93992-4LygaDTxQsuW/demo2/src/components/x-title/style.module.css.js
 var style_module_css_default = { "title": "_title_gygqx_1" };
 
 // src/components/x-title/index.ts
@@ -48405,9 +48405,8 @@ var IndexPage = (0, import_lib5.cmp)(({ setHead }) => import_lib5.html`
     ${setHead(`
     <title>Index</title>
     <meta name="description" content="Inicio de la aplicaci\xF3n" />
-  `)} ${Title({ title: "Index" })}
+  `)}
     <div>Hola</div>
-    ${Card({ title: "Card", text: Title({ title: "Inside" }) })}
   `);
 var Index_default = IndexPage;
 

@@ -37,6 +37,12 @@ class ALink extends HTMLAnchorElement {
       );
       page.heads = page.heads.map((head) => head.trim());
       page.html = page.html.trim();
+      page.dependencies.forEach((dependency) => {
+        const script = document.createElement("script");
+        script.type = "module";
+        script.src = "/__scripts__/" + dependency + "/client.js";
+        document.body.appendChild(script);
+      });
       pages[pathname] = page;
     }
     if (this.$router) {
@@ -75,25 +81,39 @@ class ALink extends HTMLAnchorElement {
   }
 }
 
+const convertToNodes = (content: string): [Element[], Function] => {
+  const tmpContainer = document.createElement("div");
+  tmpContainer.innerHTML = content;
+  const children = [...tmpContainer.children];
+  const cleanTmp = () => tmpContainer.remove();
+  return [children, cleanTmp];
+};
+
+const clean = (start: Element, end: Element) => {
+  const isEnd = (node: Element) => node === end;
+
+  while (start.nextElementSibling && !isEnd(start.nextElementSibling)) {
+    start.nextElementSibling.remove();
+  }
+};
+
 const getHeads = (content: string = "") => {
   const start = document.head.querySelector('meta[name="heads-start"]');
   const end = document.head.querySelector('meta[name="heads-end"]');
   const startParts = document.head.innerHTML.split(start!.outerHTML);
-  const prevHeads = startParts[0];
 
-  const endParts = startParts[1].split(end!.outerHTML);
-  const postHeads = endParts[1];
-
-  if (content) {
-    document.head.innerHTML =
-      prevHeads +
-        '<meta name="heads-start">' +
-        content +
-        '<meta name="heads-end">' +
-        postHeads || "";
-  } else {
-    const heads = startParts[1]?.split(end!.outerHTML)[0];
-    return heads.trim();
+  if (start && end) {
+    if (content) {
+      clean(start, end!);
+      const [children, cleanTmp] = convertToNodes(content);
+      children.forEach((child) => {
+        start.insertAdjacentElement("afterend", child);
+      });
+      cleanTmp();
+    } else {
+      const heads = startParts[1]?.split(end!.outerHTML)[0];
+      return heads.trim();
+    }
   }
 };
 

@@ -1,6 +1,6 @@
 import {
   tag
-} from "../chunk-OAASF3QD.js";
+} from "../chunk-UKHOWDPE.js";
 import "../chunk-BXBWWY2J.js";
 
 // src/components/x-title/client.ts
