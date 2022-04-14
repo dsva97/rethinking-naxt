@@ -29103,106 +29103,6 @@ var require_express2 = __commonJS({
   }
 });
 
-// ../naxt/dist/lib/router.js
-var require_router2 = __commonJS({
-  "../naxt/dist/lib/router.js"(exports2) {
-    "use strict";
-    var __awaiter = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
-        });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.naxtRouter = exports2.getLayout = void 0;
-    var express_1 = require_express2();
-    var getLayout = ({ lastHead = "", layout = (content2) => content2, lastBody = "", content = "", dependencies = [] }) => {
-      return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="dependencies" content="${dependencies.join(",")}" />
-      <meta name="heads-start" />${lastHead}<meta name="heads-end" />
-    </head>
-    <body>
-      <div id="_app">${layout(content)}</div>
-      ${lastBody}
-    </body>
-    </html>
-    `;
-    };
-    exports2.getLayout = getLayout;
-    var getHtml = (page, layout) => {
-      const dependencies = Array.from(page.dependencies).concat(layout ? ["x-layout"] : []);
-      const lastBody = dependencies.map((dependency) => `<script src="/components/${dependency}/client.js" type="module"><\/script>`).join("");
-      const content = page.html;
-      const lastHead = Array.from(page.heads).join("");
-      const html7 = (0, exports2.getLayout)({ lastBody, content, layout, dependencies, lastHead });
-      return html7;
-    };
-    var routerSetToArray = (router) => {
-      return Object.assign(Object.assign({}, router), { heads: Array.from(router.heads), dependencies: Array.from(router.dependencies) });
-    };
-    var naxtRouter2 = (routers, layout) => {
-      const appRouter = (0, express_1.Router)();
-      let useRouter = true;
-      if (!layout) {
-        useRouter = false;
-        layout = (content) => content;
-      }
-      for (const route in routers) {
-        let page = routers[route];
-        let html7 = "";
-        if (typeof page === "object") {
-          page = routerSetToArray(page);
-          html7 = getHtml(page, layout);
-          appRouter.get("/_" + route, (_req, res) => {
-            res.json(page);
-          });
-        }
-        appRouter.get(route, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-          if (typeof page === "object") {
-            res.send(html7);
-          } else {
-            const voidOrRouter = yield page(req, res, next);
-            if (voidOrRouter) {
-              const router = routerSetToArray(voidOrRouter);
-              const html8 = getHtml(router, layout);
-              res.send(html8);
-            }
-          }
-        }));
-      }
-      return appRouter;
-    };
-    exports2.naxtRouter = naxtRouter2;
-  }
-});
-
 // ../../node_modules/picocolors/picocolors.js
 var require_picocolors = __commonJS({
   "../../node_modules/picocolors/picocolors.js"(exports2, module2) {
@@ -48202,7 +48102,7 @@ var require_server = __commonJS({
     };
     var _a;
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.build = void 0;
+    exports2.buildPage = exports2.build = void 0;
     var path_1 = __importStar(require("path"));
     var fs_1 = __importDefault(require("fs"));
     var esbuild_1 = require("esbuild");
@@ -48215,8 +48115,10 @@ var require_server = __commonJS({
       throw new Error("require?.main?.filename is not defined");
     }
     var rootProject = path_1.default.resolve(srcDir, "..");
-    var srcComponents = path_1.default.resolve(rootProject, "src", "components");
-    var distComponents = path_1.default.resolve(rootProject, "dist", "components");
+    var src = path_1.default.resolve(rootProject, "src");
+    var dist = path_1.default.resolve(rootProject, "dist");
+    var srcComponents = path_1.default.resolve(src, "components");
+    var distComponents = path_1.default.resolve(dist, "components");
     var pathClientFiles;
     try {
       pathClientFiles = fs_1.default.readdirSync(srcComponents).map((cmpDirectory) => {
@@ -48258,6 +48160,119 @@ var require_server = __commonJS({
       };
     });
     exports2.build = build2;
+    var buildPage = (_path, content) => __awaiter(void 0, void 0, void 0, function* () {
+      const finalPath = path_1.default.join(dist, _path);
+      console.log(finalPath);
+      try {
+        fs_1.default.writeFileSync(finalPath, content, {
+          encoding: "utf8",
+          flag: "w"
+        });
+      } catch (err) {
+      }
+    });
+    exports2.buildPage = buildPage;
+  }
+});
+
+// ../naxt/dist/lib/router.js
+var require_router2 = __commonJS({
+  "../naxt/dist/lib/router.js"(exports2) {
+    "use strict";
+    var __awaiter = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.naxtRouter = exports2.getLayout = void 0;
+    var express_1 = require_express2();
+    var server_1 = require_server();
+    var getLayout = ({ lastHead = "", layout = (content2) => content2, lastBody = "", content = "", dependencies = [] }) => {
+      return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="dependencies" content="${dependencies.join(",")}" />
+      <meta name="heads-start" />${lastHead}<meta name="heads-end" />
+    </head>
+    <body>
+      <div id="_app">${layout(content)}</div>
+      ${lastBody}
+    </body>
+    </html>
+    `;
+    };
+    exports2.getLayout = getLayout;
+    var getHtml = (page, layout) => {
+      const dependencies = Array.from(page.dependencies).concat(layout ? ["x-layout"] : []);
+      const lastBody = dependencies.map((dependency) => `<script src="/components/${dependency}/client.js" type="module"><\/script>`).join("");
+      const content = page.html;
+      const lastHead = Array.from(page.heads).join("");
+      const html7 = (0, exports2.getLayout)({ lastBody, content, layout, dependencies, lastHead });
+      return html7;
+    };
+    var routerSetToArray = (router) => {
+      return Object.assign(Object.assign({}, router), { heads: Array.from(router.heads), dependencies: Array.from(router.dependencies) });
+    };
+    var naxtRouter2 = (routers, layout) => {
+      const appRouter = (0, express_1.Router)();
+      if (!layout) {
+        layout = (content) => content;
+      }
+      for (const route in routers) {
+        let page = routers[route];
+        let html7 = "";
+        if (typeof page === "object") {
+          page = routerSetToArray(page);
+          html7 = getHtml(page, layout);
+          appRouter.get("/_" + route, (_req, res) => {
+            res.json(page);
+          });
+          const pathHtml = route + (route === "/" ? "" : "/") + "index.html";
+          (0, server_1.buildPage)(pathHtml, html7);
+        }
+        appRouter.get(route, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+          if (typeof page === "object") {
+            res.send(html7);
+          } else {
+            const voidOrRouter = yield page(req, res, next);
+            if (voidOrRouter) {
+              const router = routerSetToArray(voidOrRouter);
+              const html8 = getHtml(router, layout);
+              res.send(html8);
+            }
+          }
+        }));
+      }
+      return appRouter;
+    };
+    exports2.naxtRouter = naxtRouter2;
   }
 });
 
@@ -48341,7 +48356,7 @@ var import_lib3 = __toModule(require_lib6());
 // src/components/x-title/index.ts
 var import_lib = __toModule(require_lib6());
 
-// esbuild-css-modules-plugin-namespace:/tmp/tmp-60598-5x7kv6O5ZWeH/demo2/src/components/x-title/style.module.css.js
+// esbuild-css-modules-plugin-namespace:/tmp/tmp-68012-JFubHnTPMnyy/demo2/src/components/x-title/style.module.css.js
 var style_module_css_default = { "title": "_title_gygqx_1" };
 
 // src/components/x-title/index.ts
@@ -48381,13 +48396,12 @@ var Post_default = PostPage;
 // src/pages/Index/index.ts
 var import_lib5 = __toModule(require_lib6());
 var IndexPage = (0, import_lib5.cmp)(({ setHead }) => import_lib5.html`
-  ${setHead(`
+    ${setHead(`
     <title>Index</title>
-  `)}
-  ${Title({ title: "Index" })}
-  <div>Hola</div
-  ${Card({ title: "Card", text: Title({ title: "Inside" }) })}
-`);
+  `)} ${Title({ title: "Index" })}
+    <div>Hola</div>
+    ${Card({ title: "Card", text: Title({ title: "Inside" }) })}
+  `);
 var Index_default = IndexPage;
 
 // src/components/x-layout/index.ts

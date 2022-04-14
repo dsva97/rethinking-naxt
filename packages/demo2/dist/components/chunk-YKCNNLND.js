@@ -75,7 +75,7 @@ var require_lib = __commonJS({
 // src/components/x-title/index.ts
 var import_lib = __toModule(require_lib());
 
-// esbuild-css-modules-plugin-namespace:/tmp/tmp-60633-n5JRdhp6eYFw/demo2/src/components/x-title/style.module.css.js
+// esbuild-css-modules-plugin-namespace:/tmp/tmp-68043-6Sb1qgv4u3C6/demo2/src/components/x-title/style.module.css.js
 var digest = "6bf6be122b527654e107dbd0519b44d7511336a84a631eb975ee521b0cfe8226";
 var css = `._title_gygqx_1 {
     color: blue;
