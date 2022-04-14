@@ -1,4 +1,5 @@
 import { Request, Response, Handler, Router } from "express";
+import { buildPage } from "./server";
 
 interface IGetLayoutParam {
   lastHead?: string;
@@ -78,10 +79,8 @@ export const naxtRouter = (
   layout?: (content: string) => string
 ) => {
   const appRouter = Router();
-  let useRouter = true;
 
   if (!layout) {
-    useRouter = false;
     layout = (content: string) => content;
   }
 
@@ -94,9 +93,13 @@ export const naxtRouter = (
       page = routerSetToArray(page);
 
       html = getHtml(page, layout);
+
       appRouter.get("/_" + route, (_req, res) => {
         res.json(page);
       });
+
+      const pathHtml = route + (route === "/" ? "" : "/") + "index.html";
+      buildPage(pathHtml, html);
     }
 
     appRouter.get(route, async (req, res, next) => {

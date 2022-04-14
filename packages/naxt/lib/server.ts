@@ -12,8 +12,10 @@ if (fileName) {
 }
 
 const rootProject = path.resolve(srcDir, "..");
-const srcComponents = path.resolve(rootProject, "src", "components");
-const distComponents = path.resolve(rootProject, "dist", "components");
+const src = path.resolve(rootProject, "src");
+const dist = path.resolve(rootProject, "dist");
+const srcComponents = path.resolve(src, "components");
+const distComponents = path.resolve(dist, "components");
 
 let pathClientFiles: string[];
 
@@ -61,4 +63,15 @@ export const build = async () => {
     result,
     dist: distComponents,
   };
+};
+
+export const buildPage = async (_path: string, content: string) => {
+  const finalPath = path.join(dist, _path);
+  console.log(finalPath);
+  try {
+    fs.writeFileSync(finalPath, content, {
+      encoding: "utf8",
+      flag: "w",
+    });
+  } catch (err) {}
 };
