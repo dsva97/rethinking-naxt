@@ -10,6 +10,10 @@
     "./lib/router": "./dist/lib/router.js",
     "./router/ALink": "./dist/router/ALink.js"
   },
+  "author": {
+    "name": "Darwin Vilcachagua",
+    "email": "darwin97.va@gmail.com"
+  },
   "license": "MIT",
   "scripts": {
     "build": "tsc"
