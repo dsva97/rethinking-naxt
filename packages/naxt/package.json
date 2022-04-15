@@ -1,5 +1,5 @@
 {
-  "name": "n4xt",
+  "name": "daxt",
   "version": "1.0.0",
   "main": "./dist/server/index.js",
   "exports": {
@@ -9,6 +9,10 @@
     "./lib/server": "./dist/lib/server.js",
     "./lib/router": "./dist/lib/router.js",
     "./router/ALink": "./dist/router/ALink.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsva97/rethinking-naxt"
   },
   "author": {
     "name": "Darwin Vilcachagua",
