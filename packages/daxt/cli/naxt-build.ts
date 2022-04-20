@@ -1,5 +1,5 @@
 import { Builder } from "../builder";
-import { IConfigPaths } from "../types";
+import { IConfigPaths } from "../typesold";
 
 const build = async (config: IConfigPaths) => {
   process.env.NODE_ENV = process.env.NODE_ENV || "production";

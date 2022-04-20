@@ -1,46 +1,63 @@
-import {
-  __commonJS,
-  __toModule
-} from "../chunk-BXBWWY2J.js";
+import { __commonJS, __toModule } from "../chunk-BXBWWY2J.js";
 
-// ../naxt/dist/lib/link.js
+// ../daxt/dist/lib/link.js
 var require_link = __commonJS({
-  "../naxt/dist/lib/link.js"(exports) {
+  "../daxt/dist/lib/link.js"(exports) {
     "use strict";
-    var __awaiter = exports && exports.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
+    var __awaiter =
+      (exports && exports.__awaiter) ||
+      function (thisArg, _arguments, P, generator) {
+        function adopt(value) {
+          return value instanceof P
+            ? value
+            : new P(function (resolve) {
+                resolve(value);
+              });
+        }
+        return new (P || (P = Promise))(function (resolve, reject) {
+          function fulfilled(value) {
+            try {
+              step(generator.next(value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+          function rejected(value) {
+            try {
+              step(generator["throw"](value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+          function step(result) {
+            result.done
+              ? resolve(result.value)
+              : adopt(result.value).then(fulfilled, rejected);
+          }
+          step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    var __classPrivateFieldGet = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
-      if (kind === "a" && !f)
-        throw new TypeError("Private accessor was defined without a getter");
-      if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-        throw new TypeError("Cannot read private member from an object whose class did not declare it");
-      return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-    };
+      };
+    var __classPrivateFieldGet =
+      (exports && exports.__classPrivateFieldGet) ||
+      function (receiver, state, kind, f) {
+        if (kind === "a" && !f)
+          throw new TypeError("Private accessor was defined without a getter");
+        if (
+          typeof state === "function"
+            ? receiver !== state || !f
+            : !state.has(receiver)
+        )
+          throw new TypeError(
+            "Cannot read private member from an object whose class did not declare it"
+          );
+        return kind === "m"
+          ? f
+          : kind === "a"
+          ? f.call(receiver)
+          : f
+          ? f.value
+          : state.get(receiver);
+      };
     var _a;
     var _b;
     var _c;
@@ -50,11 +67,20 @@ var require_link = __commonJS({
     exports.getQueryData = void 0;
     var getCurrentDependencies = () => {
       var _a2, _b2;
-      const dependencies = (_b2 = (_a2 = document.head.querySelector('meta[name="dependencies"]')) === null || _a2 === void 0 ? void 0 : _a2.getAttribute("content")) === null || _b2 === void 0 ? void 0 : _b2.split(",").map((dep) => dep.trim());
+      const dependencies =
+        (_b2 =
+          (_a2 = document.head.querySelector('meta[name="dependencies"]')) ===
+            null || _a2 === void 0
+            ? void 0
+            : _a2.getAttribute("content")) === null || _b2 === void 0
+          ? void 0
+          : _b2.split(",").map((dep) => dep.trim());
       return dependencies || [];
     };
     var getNoLoaded = (currents, requireds) => {
-      const noLoaded = requireds.filter((required) => !currents.includes(required));
+      const noLoaded = requireds.filter(
+        (required) => !currents.includes(required)
+      );
       return noLoaded;
     };
     var getQueryData = (search = window.location.search) => {
@@ -80,14 +106,21 @@ var require_link = __commonJS({
       static navigate(pathname) {
         return __awaiter(this, void 0, void 0, function* () {
           if (!(pages[pathname] && ALink.$router)) {
-            const page = yield fetch("/__parts__" + pathname).then((res) => res.ok ? res.json() : {
-              html: "Resource not found or Page Not Defined 404",
-              dependencies: [],
-              heads: []
-            });
+            const page = yield fetch("/__parts__" + pathname).then((res) =>
+              res.ok
+                ? res.json()
+                : {
+                    html: "Resource not found or Page Not Defined 404",
+                    dependencies: [],
+                    heads: [],
+                  }
+            );
             page.heads = page.heads.map((head) => head.trim());
             page.html = page.html.trim();
-            const noLoaded = getNoLoaded(getCurrentDependencies(), page.dependencies);
+            const noLoaded = getNoLoaded(
+              getCurrentDependencies(),
+              page.dependencies
+            );
             page.dependencies.forEach((dependency) => {
               const script = document.createElement("script");
               script.type = "module";
@@ -110,25 +143,44 @@ var require_link = __commonJS({
           pathname: this.pathname,
           hash: this.hash.substring(1),
           query: (0, exports.getQueryData)(this.search),
-          content: ""
+          content: "",
         };
       }
       connectedCallback() {
         if (this.isConnected) {
-          this.addEventListener("click", __classPrivateFieldGet(this, _ALink_instances, "m", _ALink_handleClick));
+          this.addEventListener(
+            "click",
+            __classPrivateFieldGet(
+              this,
+              _ALink_instances,
+              "m",
+              _ALink_handleClick
+            )
+          );
         }
       }
       disconnectedCallback() {
-        this.removeEventListener("click", __classPrivateFieldGet(this, _ALink_instances, "m", _ALink_handleClick));
+        this.removeEventListener(
+          "click",
+          __classPrivateFieldGet(
+            this,
+            _ALink_instances,
+            "m",
+            _ALink_handleClick
+          )
+        );
       }
     };
-    _ALink_instances = new WeakSet(), _ALink_handleClick = function _ALink_handleClick2(e) {
-      e.preventDefault();
-      const { state, title, pathname } = this.routerData;
-      ALink.navigate(pathname).then(() => {
-        history.pushState(state, title, pathname + window.location.search);
-      }).catch(console.error);
-    };
+    (_ALink_instances = new WeakSet()),
+      (_ALink_handleClick = function _ALink_handleClick2(e) {
+        e.preventDefault();
+        const { state, title, pathname } = this.routerData;
+        ALink.navigate(pathname)
+          .then(() => {
+            history.pushState(state, title, pathname + window.location.search);
+          })
+          .catch(console.error);
+      });
     var convertToNodes = (content) => {
       const tmpContainer = document.createElement("div");
       tmpContainer.innerHTML = content;
@@ -156,20 +208,33 @@ var require_link = __commonJS({
           });
           cleanTmp();
         } else {
-          const heads = (_a2 = startParts[1]) === null || _a2 === void 0 ? void 0 : _a2.split(end.outerHTML)[0];
+          const heads =
+            (_a2 = startParts[1]) === null || _a2 === void 0
+              ? void 0
+              : _a2.split(end.outerHTML)[0];
           return heads.trim();
         }
       }
     };
     var pages = {
       [location.pathname]: {
-        html: ((_a = ALink.$router) === null || _a === void 0 ? void 0 : _a.innerHTML) || "",
-        dependencies: ((_c = (_b = document.querySelector("meta[content='dependencies']")) === null || _b === void 0 ? void 0 : _b.getAttribute("content")) === null || _c === void 0 ? void 0 : _c.split(",")) || [],
-        heads: [getHeads()]
-      }
+        html:
+          ((_a = ALink.$router) === null || _a === void 0
+            ? void 0
+            : _a.innerHTML) || "",
+        dependencies:
+          ((_c =
+            (_b = document.querySelector("meta[content='dependencies']")) ===
+              null || _b === void 0
+              ? void 0
+              : _b.getAttribute("content")) === null || _c === void 0
+            ? void 0
+            : _c.split(",")) || [],
+        heads: [getHeads()],
+      },
     };
     customElements.define("a-link", ALink, { extends: "a" });
-  }
+  },
 });
 
 // src/components/x-layout/client.ts

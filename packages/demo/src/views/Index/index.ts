@@ -1,7 +1,7 @@
 import { Button } from "../../components/Button/template";
-import { cmp } from 'naxt/lib'
+import { cmp } from "daxt/lib";
 
-console.log(cmp)
+console.log(cmp);
 
 export const IndexPage = () => /*html*/ `
   <h1>Index! Hola mundo 2 xd!</h1>

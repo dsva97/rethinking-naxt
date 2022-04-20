@@ -22,8 +22,8 @@ routes.find((route) => {
   if (isCurrentPath) {
     route.selected = isCurrentPath;
     route.content =
-      document.getElementById("naxtRouter")?.innerHTML ||
-      document.getElementById("naxtApp")?.innerHTML ||
+      document.getElementById("daxtRouter")?.innerHTML ||
+      document.getElementById("daxtApp")?.innerHTML ||
       "";
   }
   return isCurrentPath;

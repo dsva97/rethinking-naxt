@@ -1,4 +1,4 @@
-import "naxt/router/ALink";
+import "daxt/router/ALink";
 // import { getData } from "../data";
 
 // console.log(`

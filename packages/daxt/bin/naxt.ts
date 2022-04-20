@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from "fs";
 import path from "path";
-import { IConfigPaths } from "../types";
+import { IConfigPaths } from "../typesold";
 
 const argument = process.argv[2];
 
@@ -9,9 +9,9 @@ const defaultCommand = "build";
 
 export type cliCommand = (config: IConfigPaths) => void;
 const commands: { [command: string]: () => Promise<cliCommand> } = {
-  dev: () => import("../cli/naxt-dev").then((i) => i.default),
-  start: () => import("../cli/naxt-start").then((i) => i.default),
-  build: () => import("../cli/naxt-build").then((i) => i.default),
+  dev: () => import("../cli/daxt-dev").then((i) => i.default),
+  start: () => import("../cli/daxt-start").then((i) => i.default),
+  build: () => import("../cli/daxt-build").then((i) => i.default),
 };
 
 const command = commands.hasOwnProperty(argument) ? argument : defaultCommand;

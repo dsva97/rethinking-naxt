@@ -73,9 +73,9 @@ const routerSetToArray = (router: IRouter) => {
   };
 };
 
-export type INaxtRouters = IRouters;
+export type IdaxtRouters = IRouters;
 
-export const naxtRouter = (
+export const daxtRouter = (
   routers: IRouters,
   layout?: (content: string) => string
 ) => {

@@ -1,11 +1,13 @@
-import { cmp, html } from "naxt/lib";
+import { cmp, html } from "daxt/lib";
 import { Title } from "../x-title";
 
-export const tag = 'x-card'
+export const tag = "x-card";
 
-export const Card = cmp(({ title, text }) => html`
-  <div>
-    ${Title({ title })}
-    <span>${text}</span>
-  </div>
-`)(tag)
+export const Card = cmp(
+  ({ title, text }) => html`
+    <div>
+      ${Title({ title })}
+      <span>${text}</span>
+    </div>
+  `
+)(tag);

@@ -28,7 +28,7 @@ Trace:
 
 npm manifest: 
   {
-    "name": "naxt",
+    "name": "daxt",
     "version": "1.0.0",
     "main": "./dist/server/index.js",
     "exports": {
@@ -40,7 +40,7 @@ npm manifest:
       "build": "tsc"
     },
     "bin": {
-      "naxt": "./dist/bin/naxt.js"
+      "daxt": "./dist/bin/daxt.js"
     },
     "preferGlobal": true,
     "devDependencies": {

@@ -1,5 +1,5 @@
 {
-  "name": "otronaxt",
+  "name": "otrodaxt",
   "version": "1.0.0",
   "main": "./dist/server/index.js",
   "exports": {
@@ -11,7 +11,7 @@
     "build": "tsc"
   },
   "bin": {
-    "otronaxt": "./dist/bin/naxt.js"
+    "otrodaxt": "./dist/bin/daxt.js"
   },
   "preferGlobal": true,
   "devDependencies": {

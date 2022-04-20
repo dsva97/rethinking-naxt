@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { IConfigPaths } from "../types";
+import { IConfigPaths } from "../typesold";
 import { recursiveApply } from "../utils";
 
 export class Cleaner {

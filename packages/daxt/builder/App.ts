@@ -6,7 +6,7 @@ import {
   IArgGenerateLayout,
   IConfigPaths,
   IGeneratorsHtmls,
-} from "../types";
+} from "../typesold";
 import { Importer } from "./Importer";
 
 export class AppConfig implements IGeneratorsHtmls {
@@ -46,7 +46,7 @@ export class AppConfig implements IGeneratorsHtmls {
   private defaultLayout: generateLayout = async ({
     content,
   }: IArgGenerateLayout): Promise<string> => {
-    return /*html*/ `<div id="naxtRouter">${content}</div>`;
+    return /*html*/ `<div id="daxtRouter">${content}</div>`;
   };
 
   private defaultHtml: generateHtml = async ({
@@ -67,7 +67,7 @@ export class AppConfig implements IGeneratorsHtmls {
       <!-- HEAD -->
     </head>
     <body>
-      <div id="naxtApp">${content}</div>
+      <div id="daxtApp">${content}</div>
       ${scripts}
     </body>
     </html>

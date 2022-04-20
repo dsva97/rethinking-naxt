@@ -8,9 +8,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build:naxt": "cd packages/naxt && yarn build",
+    "build:daxt": "cd packages/daxt && yarn build",
     "build:demo": "cd packages/demo && yarn build",
-    "dev": "nodemon -e ts,js --ignore **/dist/** --exec 'yarn build:naxt && yarn build:demo'"
+    "dev": "nodemon -e ts,js --ignore **/dist/** --exec 'yarn build:daxt && yarn build:demo'"
   },
   "dependencies": {
     "nodemon": "^2.0.12"

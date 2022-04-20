@@ -1,4 +1,4 @@
-import { cmp, html } from "naxt/lib";
+import { cmp, html } from "daxt/lib";
 
 const IndexPage = cmp(
   ({ setHead }) => html`

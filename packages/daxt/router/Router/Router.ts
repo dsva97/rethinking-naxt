@@ -59,7 +59,7 @@ export class Router extends RouterMatcher {
         if (hash) {
           url += "#" + hash;
         }
-        const routerElement = document.getElementById("naxtRouter");
+        const routerElement = document.getElementById("daxtRouter");
         if (routerElement) routerElement.innerHTML = newMatch.content;
         history.pushState(state, title, url);
         this.publicate(routerData);

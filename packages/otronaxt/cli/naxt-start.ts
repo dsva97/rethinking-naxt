@@ -3,7 +3,7 @@ import { start } from "live-server";
 import nodemon from "nodemon";
 
 const build = async (config: IConfigPaths) => {
-  nodemon(`--watch ${config.src} -e "js ts css" --exec "naxt dev"`);
+  nodemon(`--watch ${config.src} -e "js ts css" --exec "daxt dev"`);
 
   start({
     port: 3060,

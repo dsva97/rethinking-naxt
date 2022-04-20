@@ -1,4 +1,4 @@
-import { cmp, html } from "naxt/lib";
+import { cmp, html } from "daxt/lib";
 import { Title } from "../../../components/x-title";
 import { Card } from "../../../components/x-card";
 

@@ -9,7 +9,7 @@ const App = ({ content }) => /*html*/ `
             <a href="/contact" is="a-link">Contact</a>
         </nav>
     </header>
-    <main id="naxtRouter">${content}</main>
+    <main id="daxtRouter">${content}</main>
     <footer>
         Hecho con pasión en Los Olivos
     </footer>

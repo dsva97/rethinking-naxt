@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "naxt start",
-    "build": "naxt build"
+    "start": "daxt start",
+    "build": "daxt build"
   },
   "dependencies": {
-    "naxt": "1.0.0"
+    "daxt": "1.0.0"
   }
 }

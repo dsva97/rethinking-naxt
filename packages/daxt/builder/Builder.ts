@@ -10,7 +10,7 @@ import {
   IConfigPageCore,
   IConfigPaths,
   IContext,
-} from "../types";
+} from "../typesold";
 import { getRelativePath, recursiveApply } from "../utils";
 import { AppConfig } from "./App";
 import { Cleaner } from "./Cleaner";
